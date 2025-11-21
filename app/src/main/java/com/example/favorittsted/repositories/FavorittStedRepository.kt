@@ -21,4 +21,12 @@ class FavorittStedRepository() {
             println("Feil ved lagring av data: ${e.message}")
         }
     }
+
+    suspend fun updatePlace(id: Int, name: String, description: String, address: String, latitude: Double, longitude: Double) {
+            try {
+                Api.retrofitService.updatePlace(id, name, description, address, latitude.toString(), longitude.toString())
+            } catch (e: Exception) {
+                println("Feil ved oppdatering av data: ${e.message}")
+            }
+        }
 }

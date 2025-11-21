@@ -33,6 +33,16 @@ interface ApiService {
         @Query("Longitude") longitude: String
     ) : String
 
+    @GET("jsonupdate.php")
+    suspend fun updatePlace(
+        @Query("id") id: Int,
+        @Query("Name") name: String,
+        @Query("Description") description: String,
+        @Query("Address") address: String,
+        @Query("Latitude") latitude: String,
+        @Query("Longitude") longitude: String
+    ) : String
+
 
 }
 

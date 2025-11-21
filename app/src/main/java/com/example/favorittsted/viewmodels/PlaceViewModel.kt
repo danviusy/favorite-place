@@ -48,8 +48,9 @@ class PlaceViewModel(private val repository: FavorittStedRepository = FavorittSt
         _uiState.value = PlaceUiState()
     }
 
-    fun updateStateValues(name: String, description: String, address: String, latitude: Double, longitude: Double) {
+    fun updateStateValues(id : Int, name: String, description: String, address: String, latitude: Double, longitude: Double) {
         _uiState.value = PlaceUiState(
+            currentId = id,
             currentName = name,
             currentDescription = description,
             currentAddress = address,
@@ -64,5 +65,19 @@ class PlaceViewModel(private val repository: FavorittStedRepository = FavorittSt
             currentLongitude = Longitude
         )
     }
+
+    fun updatePlace(id: Int, name: String, description: String, address: String, latitude: Double, longitude: Double) {
+        viewModelScope.launch {
+            try {
+                repository.updatePlace(id, name, description, address, latitude, longitude)
+                _uiState.value = PlaceUiState()
+                getFavoritePlace()
+            } catch (e : Exception) {
+                Log.e("PlaceViewModel", "Feil ved oppdatering av data: ${e.message}")
+                _uiState.value = PlaceUiState()
+            }
+        }
+    }
+
 
 }

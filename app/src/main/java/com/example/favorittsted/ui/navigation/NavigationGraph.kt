@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.favorittsted.ui.screens.AddPlace
+import com.example.favorittsted.ui.screens.EditPlace
 import com.example.favorittsted.ui.screens.MapScreen
 import com.example.favorittsted.ui.screens.PlaceInfo
 import com.example.favorittsted.viewmodels.PlaceViewModel
@@ -17,5 +18,6 @@ fun NavigationGraph(modifier: Modifier = Modifier, navController: NavHostControl
         composable("start") { MapScreen(modifier = modifier, navController = navController, viewModel = viewModel) }
         composable("add") { AddPlace(modifier = modifier, navController = navController, viewModel = viewModel) }
         composable("info") { PlaceInfo(modifier = modifier, navController = navController, viewModel = viewModel) }
+        composable("edit") { EditPlace(modifier = modifier, navController = navController, viewModel = viewModel) }
     }
 }

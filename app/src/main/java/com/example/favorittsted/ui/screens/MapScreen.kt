@@ -90,6 +90,7 @@ fun MapScreen(modifier: Modifier = Modifier, navController: NavHostController, v
                     snippet = favoritePlace.description,
                     onClick = {
                         viewModel.updateStateValues(
+                            favoritePlace.id,
                             favoritePlace.name,
                             favoritePlace.description,
                             favoritePlace.address,
@@ -102,9 +103,7 @@ fun MapScreen(modifier: Modifier = Modifier, navController: NavHostController, v
                 )
             }
         }
-        Box(modifier = Modifier.fillMaxWidth()) {
 
-        }
 
 
     }
