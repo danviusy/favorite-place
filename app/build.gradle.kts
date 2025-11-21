@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -39,8 +40,13 @@ android {
     }
 }
 
-dependencies {
+secrets {
+    propertiesFileName = "secrets.properties"
+}
 
+dependencies {
+    implementation(libs.maps.compose)
+    implementation(libs.maps.compose.utils)
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     implementation("com.squareup.retrofit2:converter-moshi:3.0.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
