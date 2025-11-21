@@ -45,6 +45,7 @@ secrets {
 }
 
 dependencies {
+    implementation("androidx.navigation:navigation-compose:2.9.4")
     implementation(libs.maps.compose)
     implementation(libs.maps.compose.utils)
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
@@ -59,6 +60,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

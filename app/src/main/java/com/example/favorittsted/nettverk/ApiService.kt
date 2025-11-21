@@ -6,6 +6,8 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 private val BASE_URL = "https://dave3600.cs.oslomet.no/~demar4981/"
 
@@ -21,6 +23,17 @@ private val retrofit = Retrofit.Builder()
 interface ApiService {
     @GET("jsonout.php")
     suspend fun getFavoritePlace(): List<FavorittSted>
+
+    @GET("jsonin.php")
+    suspend fun putPlace(
+        @Query("Name") name: String,
+        @Query("Description") description: String,
+        @Query("Address") address: String,
+        @Query("Latitude") latitude: String,
+        @Query("Longitude") longitude: String
+    ) : String
+
+
 }
 
 object Api {

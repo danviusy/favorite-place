@@ -12,8 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.example.favorittsted.ui.navigation.NavigationGraph
 import com.example.favorittsted.ui.screens.MapScreen
 import com.example.favorittsted.ui.theme.FavorittStedTheme
+import com.example.favorittsted.viewmodels.PlaceViewModel
 import com.google.android.gms.maps.GoogleMap
 import com.google.maps.android.compose.GoogleMap
 
@@ -24,12 +27,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             FavorittStedTheme {
                 Scaffold (modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MapScreen(modifier = Modifier.padding(innerPadding))
+                    FavoritePlace(modifier = Modifier.padding(innerPadding), viewModel = PlaceViewModel())
                 }
             }
         }
     }
 }
+
+@Composable
+fun FavoritePlace(modifier: Modifier = Modifier, viewModel: PlaceViewModel) {
+    val navController = rememberNavController()
+    NavigationGraph(modifier = modifier, navController = navController, viewModel = viewModel)
+}
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
