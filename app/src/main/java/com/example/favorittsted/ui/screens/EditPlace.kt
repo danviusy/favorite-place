@@ -95,7 +95,7 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
 
         Button(
             onClick = {
-                navController.navigate("start")
+                navController.navigate("map")
             },
             modifier = Modifier
                 .fillMaxWidth(0.8f)
@@ -132,7 +132,7 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
                 } else {
                     viewModel.updatePlace(id, name, description, address, latitude, longitude)
                     showErrorMessage = false
-                    navController.navigate("start")
+                    navController.navigate("map")
                 }
             },
             modifier = Modifier

@@ -66,7 +66,7 @@ fun PlaceInfo(modifier: Modifier = Modifier, navController: NavHostController, v
 
         Button(
             onClick = {
-                navController.navigate("start")
+                navController.navigate("map")
             },
             modifier = Modifier
                 .fillMaxWidth(0.8f)

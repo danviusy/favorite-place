@@ -97,7 +97,7 @@ fun AddPlace(modifier: Modifier = Modifier, navController: NavHostController, vi
                 onDismissRequest = {showDialog = false},
                 onConfirmation = {
                     viewModel.resetStateValues()
-                    navController.navigate("start") },
+                    navController.navigate("map") },
                 dialogTitle = "Vil du gå tilbake?",
                 dialogText = "Du mister endringene du har gjort."
             )
@@ -143,7 +143,7 @@ fun AddPlace(modifier: Modifier = Modifier, navController: NavHostController, vi
                 } else {
                     viewModel.putFavoritePlace(name, description, address, latitude, longitude)
                     showErrorMessage = false
-                    navController.navigate("start")
+                    navController.navigate("map")
                 }
             },
             modifier = Modifier
