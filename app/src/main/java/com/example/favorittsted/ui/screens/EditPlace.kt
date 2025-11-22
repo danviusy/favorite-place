@@ -142,6 +142,18 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
             Text("Lagre", fontSize = 20.sp)
         }
 
+        Button(
+            onClick = {
+                viewModel.deletePlace(id)
+                navController.navigate("map")
+            },
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .height(56.dp)
+        ) {
+            Text("Slett", fontSize = 20.sp)
+        }
+
         if (showErrorMessage) { // Feilmelding hvis ikke alle felt er fylt, forhindrer lagring av null-verdier
             Text(
                 "Alle feltene må fylles ut",

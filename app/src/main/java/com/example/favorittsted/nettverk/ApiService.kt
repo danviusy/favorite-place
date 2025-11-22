@@ -43,6 +43,11 @@ interface ApiService {
         @Query("Longitude") longitude: String
     ) : String
 
+    @GET("jsondelete.php")
+    suspend fun deletePlace(
+        @Query("id") id: Int
+    ) : String
+
 
 }
 
