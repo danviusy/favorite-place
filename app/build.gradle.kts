@@ -45,6 +45,8 @@ secrets {
 }
 
 dependencies {
+    implementation(platform("androidx.compose:compose-bom:2024.01.00"))
+    implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.navigation:navigation-compose:2.9.4")
     implementation(libs.maps.compose)
     implementation(libs.maps.compose.utils)

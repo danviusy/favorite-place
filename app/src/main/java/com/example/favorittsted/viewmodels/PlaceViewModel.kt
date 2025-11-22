@@ -70,11 +70,9 @@ class PlaceViewModel(private val repository: FavorittStedRepository = FavorittSt
         viewModelScope.launch {
             try {
                 repository.updatePlace(id, name, description, address, latitude, longitude)
-                _uiState.value = PlaceUiState()
                 getFavoritePlace()
             } catch (e : Exception) {
                 Log.e("PlaceViewModel", "Feil ved oppdatering av data: ${e.message}")
-                _uiState.value = PlaceUiState()
             }
         }
     }
