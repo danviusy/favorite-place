@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.favorittsted.ui.navigation.NavigationGraph
 import com.example.favorittsted.ui.screens.MapScreen
@@ -25,9 +26,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val placeViewModel : PlaceViewModel = viewModel() // Instansierer viewmodel
             FavorittStedTheme {
                 Scaffold (modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    FavoritePlace(modifier = Modifier.padding(innerPadding), viewModel = PlaceViewModel())
+                    FavoritePlace(modifier = Modifier.padding(innerPadding), viewModel = placeViewModel)
                 }
             }
         }
@@ -38,21 +40,4 @@ class MainActivity : ComponentActivity() {
 fun FavoritePlace(modifier: Modifier = Modifier, viewModel: PlaceViewModel) {
     val navController = rememberNavController()
     NavigationGraph(modifier = modifier, navController = navController, viewModel = viewModel)
-}
-
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FavorittStedTheme {
-        Greeting("Android")
-    }
 }

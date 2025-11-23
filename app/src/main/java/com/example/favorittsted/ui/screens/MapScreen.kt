@@ -4,7 +4,6 @@ package com.example.favorittsted.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,11 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -29,13 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.favorittsted.data.FavorittSted
 import com.example.favorittsted.ui.components.Dialog
 import com.example.favorittsted.ui.components.Toolbar
 import com.example.favorittsted.viewmodels.PlaceViewModel
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -45,13 +38,16 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun MapScreen(modifier: Modifier = Modifier, navController: NavHostController, viewModel: PlaceViewModel) {
-    val favoritePlaces by viewModel.favoritePlaces.collectAsState()
+
+
+    val favoritePlaces by viewModel.favoritePlaces.collectAsState() // Hentet liste av lagrede steder
 
     var currentLatitude by remember { mutableStateOf(0.0) }
     var currentLongitude by remember { mutableStateOf(0.0) }
 
     var showDialog by remember { mutableStateOf(false) }
 
+    // Kameraposisjon
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(
             LatLng(
@@ -61,6 +57,7 @@ fun MapScreen(modifier: Modifier = Modifier, navController: NavHostController, v
         )
     }
     Column (modifier = modifier.fillMaxSize()) {
+        // Nav-bar
         Toolbar (
             onBackClick = {
                 navController.navigate("start")
@@ -68,6 +65,7 @@ fun MapScreen(modifier: Modifier = Modifier, navController: NavHostController, v
             extraActions = listOf(
                 {
                     IconButton(onClick = {
+                        // Liste-visning
                         navController.navigate("list")
                     }) {
                         Icon(Icons.Default.List, contentDescription = "List-view")
@@ -88,7 +86,9 @@ fun MapScreen(modifier: Modifier = Modifier, navController: NavHostController, v
                     onDismissRequest = {showDialog = false},
                     onConfirmation = {
                         showDialog = false
+                        // Oppdaterer UI-state variablene med nye verdiene
                         viewModel.onCreationOfPlace(currentLatitude, currentLongitude)
+                        // Navigerer til AddPlace-skjermen
                         navController.navigate("add") },
                     dialogTitle = "Vil du legge til et nytt sted?",
                     dialogText = "Du kan alltid lagre nye steder senere"
@@ -124,6 +124,7 @@ fun MapScreen(modifier: Modifier = Modifier, navController: NavHostController, v
                     modifier = Modifier.fillMaxSize()
 
                 ) {
+                    // Marker for hver lagret sted
                     favoritePlaces.forEach { favoritePlace ->
                         Marker (
                             state = MarkerState(position = LatLng(favoritePlace.latitude, favoritePlace.longitude)),

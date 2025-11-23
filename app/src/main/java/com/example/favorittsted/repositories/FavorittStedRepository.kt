@@ -1,12 +1,12 @@
 package com.example.favorittsted.repositories
 
-import android.util.Log
+
 import com.example.favorittsted.data.FavorittSted
 import com.example.favorittsted.nettverk.Api
 
 class FavorittStedRepository() {
 
-    suspend fun getFavoritePlace(): List<FavorittSted> {
+    suspend fun getFavoritePlace(): List<FavorittSted> { // Henter alle stedsopplysningene
         return try {
             Api.retrofitService.getFavoritePlace()
         } catch (e: Exception) {
@@ -14,6 +14,8 @@ class FavorittStedRepository() {
         }
     }
 
+
+    // Legger inn et nytt favoritt sted
     suspend fun putPlace(name: String, description: String, address: String, latitude: Double, longitude: Double) {
         try {
             Api.retrofitService.putPlace(name, description, address, latitude.toString(), longitude.toString())
@@ -22,6 +24,7 @@ class FavorittStedRepository() {
         }
     }
 
+    // Oppdaterer detaljer om et favoritt sted
     suspend fun updatePlace(id: Int, name: String, description: String, address: String, latitude: Double, longitude: Double) {
         try {
             Api.retrofitService.updatePlace(id, name, description, address, latitude.toString(), longitude.toString())
@@ -30,6 +33,8 @@ class FavorittStedRepository() {
         }
     }
 
+
+    // Sletter et lagret sted
     suspend fun deletePlace(id: Int) {
         try {
             Api.retrofitService.deletePlace(id)

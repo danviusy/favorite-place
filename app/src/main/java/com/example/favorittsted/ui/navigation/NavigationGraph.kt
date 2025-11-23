@@ -2,7 +2,6 @@ package com.example.favorittsted.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,6 +12,9 @@ import com.example.favorittsted.ui.screens.MapScreen
 import com.example.favorittsted.ui.screens.PlaceInfo
 import com.example.favorittsted.ui.screens.StartScreen
 import com.example.favorittsted.viewmodels.PlaceViewModel
+
+
+// Navigeringsstruktur for applikasjonen
 
 @Composable
 fun NavigationGraph(modifier: Modifier = Modifier, navController: NavHostController, viewModel: PlaceViewModel) {

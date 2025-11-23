@@ -57,70 +57,77 @@ fun ListScreen(modifier: Modifier = Modifier, navController: NavHostController, 
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column (modifier = modifier.fillMaxSize()) {
+
+        Column (
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            // Navbar
             Toolbar (
                 onBackClick = {
+                    // Kart-visning
                     navController.navigate("map")
                 }
             )
+        }
 
-            Column (
-                modifier = modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Favoritt steder",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = 1.2.sp,
-                    modifier = Modifier
-                        .padding(vertical = 12.dp)
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                LazyColumn {
-                    items(favoritePlaces) { favoritePlace ->
-                        Card(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(8.dp)
-                                .clickable {
-                                    viewModel.updateStateValues(
-                                        favoritePlace.id,
-                                        favoritePlace.name,
-                                        favoritePlace.description,
-                                        favoritePlace.address,
-                                        favoritePlace.latitude,
-                                        favoritePlace.longitude
-                                    )
-                                    navController.navigate("info")
-                                },
-                            elevation = CardDefaults.cardElevation(4.dp)
+
+        Column (
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally)
+        {
+            Text(
+                text = "Favoritt steder",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.2.sp,
+                modifier = Modifier
+                    .padding(vertical = 12.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            LazyColumn {
+                // Lager et kort om hvert sted
+                items(favoritePlaces) { favoritePlace ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(8.dp)
+                            .clickable {
+                                viewModel.updateStateValues(
+                                    favoritePlace.id,
+                                    favoritePlace.name,
+                                    favoritePlace.description,
+                                    favoritePlace.address,
+                                    favoritePlace.latitude,
+                                    favoritePlace.longitude
+                                )
+                                navController.navigate("info")
+                            },
+                        elevation = CardDefaults.cardElevation(4.dp)
+                    ) {
+                        Column (
+                            modifier = Modifier.padding(16.dp)
                         ) {
-                            Column (
-                                modifier = Modifier.padding(16.dp)
-                            ) {
-                                Text(
-                                    text = favoritePlace.name,
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold,
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(
-                                    text = favoritePlace.description,
-                                    fontSize = 16.sp,
-                                    color = Color.DarkGray
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(
-                                    text = favoritePlace.address,
-                                    fontSize = 14.sp,
-                                    color = Color.Gray
-                                )
-                            }
-
+                            Text(
+                                text = favoritePlace.name,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = favoritePlace.description,
+                                fontSize = 16.sp,
+                                color = Color.DarkGray
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = favoritePlace.address,
+                                fontSize = 14.sp,
+                                color = Color.Gray
+                            )
                         }
+
                     }
                 }
             }

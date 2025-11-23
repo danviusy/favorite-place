@@ -53,6 +53,7 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
     val context = LocalContext.current
 
 
+    // State-variabler
     val placeUiState = viewModel.uiState.collectAsState()
     val id = placeUiState.value.currentId
     var name by remember { mutableStateOf(placeUiState.value.currentName) }
@@ -101,6 +102,7 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Navbar
         Toolbar (
             onBackClick = {
                 navController.navigate("info")
@@ -111,9 +113,12 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
                         if (fieldsEmpty) {
                             showErrorMessage = true
                         } else {
+                            // Oppdater state-varioabler
                             viewModel.updateStateValues(id, name, description, address, latitude, longitude)
+                            // Oppdaterer stedsinfo i databasen
                             viewModel.updatePlace(id, name, description, address, latitude, longitude)
                             showErrorMessage = false
+                            // Navigerer tilbake til infosiden
                             navController.navigate("info")
                         }
                     }) {
@@ -128,6 +133,7 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
             Dialog(
                 onDismissRequest = {showDialog = false},
                 onConfirmation = {
+                    // Sletter stedet
                     viewModel.deletePlace(id)
                     navController.navigate("map")
                 },
@@ -183,6 +189,7 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
         Spacer(Modifier.height(16.dp))
 
 
+        // Slette-knappen
         Button(
             onClick = {
                 showDialog = true

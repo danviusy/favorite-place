@@ -38,7 +38,7 @@ fun StartScreen(modifier: Modifier = Modifier, navController: NavHostController)
         )
         Spacer(modifier = Modifier.height(32.dp))
 
-        Button(
+        Button( // Navigerer videre til kartvisning
             onClick = {
                 navController.navigate("map")
             },

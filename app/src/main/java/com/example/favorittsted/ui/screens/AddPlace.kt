@@ -53,6 +53,7 @@ fun AddPlace(modifier: Modifier = Modifier, navController: NavHostController, vi
     val context = LocalContext.current
 
 
+    // State-variabler
     val placeUiState = viewModel.uiState.collectAsState()
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
@@ -79,6 +80,7 @@ fun AddPlace(modifier: Modifier = Modifier, navController: NavHostController, vi
     }
 
 
+    // Sjekker om feltene er tomme
     val fieldsEmpty = name.isEmpty() || description.isEmpty() || address.isEmpty()
     var showErrorMessage by remember { mutableStateOf(false) }
 
@@ -110,6 +112,7 @@ fun AddPlace(modifier: Modifier = Modifier, navController: NavHostController, vi
                         if (fieldsEmpty) {
                             showErrorMessage = true
                         } else {
+                            // Legger inn et nytt sted inn i databasen
                             viewModel.putFavoritePlace(name, description, address, latitude, longitude)
                             showErrorMessage = false
                             navController.navigate("map")
@@ -125,8 +128,8 @@ fun AddPlace(modifier: Modifier = Modifier, navController: NavHostController, vi
             Dialog(
                 onDismissRequest = {showDialog = false},
                 onConfirmation = {
-                    viewModel.resetStateValues()
-                    navController.navigate("map") },
+                    viewModel.resetStateValues() // Resetter statevariablene
+                    navController.navigate("map") }, // Navigerer tilbake til kartvisning
                 dialogTitle = "Vil du gå tilbake?",
                 dialogText = "Du mister endringene du har gjort."
             )
@@ -197,6 +200,8 @@ fun AddPlace(modifier: Modifier = Modifier, navController: NavHostController, vi
     }
 }
 
+
+// Konverterer GPS-koordinater til addresse
 fun getAddress(context: Context, latLng: LatLng): String {
     return try {
         val geocoder = Geocoder(context, Locale.getDefault())

@@ -13,22 +13,31 @@ import kotlinx.coroutines.launch
 
 class PlaceViewModel(private val repository: FavorittStedRepository = FavorittStedRepository()) : ViewModel() {
 
+
+    // UI-state variablene
     private val _uiState = MutableStateFlow(PlaceUiState())
     val uiState: StateFlow<PlaceUiState> = _uiState.asStateFlow()
 
+
+    // Liste av alle favoritt stedene
     private val _favoritePlaces = MutableStateFlow<List<FavorittSted>>(emptyList())
     val favoritePlaces: StateFlow<List<FavorittSted>> = _favoritePlaces
+
 
     init {
         getFavoritePlace()
     }
 
+
+    // Henter ut alle stedene
     fun getFavoritePlace() {
         viewModelScope.launch {
             val list = repository.getFavoritePlace()
             _favoritePlaces.value = list
         }
     }
+
+    // Legger inn et nytt lagret sted
 
     fun putFavoritePlace(name: String, description: String, address: String, latitude: Double, longitude: Double) {
         viewModelScope.launch {
@@ -44,10 +53,14 @@ class PlaceViewModel(private val repository: FavorittStedRepository = FavorittSt
         }
     }
 
+
+    // Resetter UI-state variablene
     fun resetStateValues() {
         _uiState.value = PlaceUiState()
     }
 
+
+    // Oppdaterer UI-state variablene
     fun updateStateValues(id : Int, name: String, description: String, address: String, latitude: Double, longitude: Double) {
         _uiState.value = PlaceUiState(
             currentId = id,
@@ -59,6 +72,8 @@ class PlaceViewModel(private val repository: FavorittStedRepository = FavorittSt
         )
     }
 
+
+    // Oppdaterer UI-state variablene når en ny sted er lagt inn
     fun onCreationOfPlace(Latitude: Double, Longitude: Double) {
         _uiState.value = PlaceUiState(
             currentLatitude = Latitude,
@@ -66,6 +81,7 @@ class PlaceViewModel(private val repository: FavorittStedRepository = FavorittSt
         )
     }
 
+    // Oppdaterer detaljene om et sted
     fun updatePlace(id: Int, name: String, description: String, address: String, latitude: Double, longitude: Double) {
         viewModelScope.launch {
             try {

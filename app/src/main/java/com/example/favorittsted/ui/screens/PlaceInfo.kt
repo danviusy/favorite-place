@@ -48,12 +48,14 @@ import com.google.maps.android.compose.rememberMarkerState
 @Composable
 fun PlaceInfo(modifier: Modifier = Modifier, navController: NavHostController, viewModel: PlaceViewModel) {
     val placeUiState = viewModel.uiState.collectAsState()
+    // State-variabler
     val name = placeUiState.value.currentName
     val description = placeUiState.value.currentDescription
     val address = placeUiState.value.currentAddress
     val longitude = placeUiState.value.currentLongitude
     val latitude = placeUiState.value.currentLatitude
 
+    // Kameraposisjon
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(
             LatLng(
@@ -69,15 +71,18 @@ fun PlaceInfo(modifier: Modifier = Modifier, navController: NavHostController, v
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        // Navbar
         Toolbar (
             onBackClick = {
-                viewModel.resetStateValues()
-                navController.navigate("map")
+                viewModel.resetStateValues() // Resetter statevariabler
+                navController.navigate("map") // Navigerer tilbake til kartvisning
+
             },
             extraActions = listOf(
                 {
                     IconButton(onClick = {
-                        navController.navigate("edit")
+                        navController.navigate("edit") // Redigeringsknapp
                     }) {
                         Icon(Icons.Default.Edit, contentDescription = "Edit")
                     }
