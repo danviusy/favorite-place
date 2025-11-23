@@ -63,6 +63,7 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
     var address by remember { mutableStateOf(placeUiState.value.currentAddress) }
 
 
+    var showDialog by remember { mutableStateOf(false) }
 
 
     val markerState = remember { MarkerState(position = LatLng(latitude, longitude)) }
@@ -123,6 +124,18 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
         )
 
 
+        if (showDialog) {
+            Dialog(
+                onDismissRequest = {showDialog = false},
+                onConfirmation = {
+                    viewModel.deletePlace(id)
+                    navController.navigate("map")
+                },
+                dialogTitle = "Vil du slette dette stedet?",
+                dialogText = "Det er ikke mulig å tilbakeføre dette."
+            )
+        }
+
 
 
 
@@ -172,8 +185,7 @@ fun EditPlace(modifier: Modifier = Modifier, navController: NavHostController, v
 
         Button(
             onClick = {
-                viewModel.deletePlace(id)
-                navController.navigate("map")
+                showDialog = true
             },
             modifier = Modifier
                 .fillMaxWidth(0.8f)
